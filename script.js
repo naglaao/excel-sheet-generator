@@ -16,12 +16,26 @@ const generateTable = () => {
     if(rowsNumber>0 && columnsNumber>0){
         tableExists = true
     }
+    else{
+        swal({
+            icon: 'error',
+            title: 'wrong',
+            text: 'Please enter the number of columns and rows!',
+            button: "OK"
+          })
+    }
 }
 
 const ExportToExcel = (type, fn, dl) => {
     if(!tableExists){
-        return
+        swal({
+            icon: 'error',
+            title: 'wrong',
+            text: 'Please Create a Table!',
+            button: "OK"
+          })
     }
+    
     var elt = table
     var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" })
     return dl ? XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' })
